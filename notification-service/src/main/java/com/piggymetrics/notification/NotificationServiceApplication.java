@@ -1,8 +1,7 @@
 package com.piggymetrics.notification;
 
-import com.piggymetrics.notification.repository.converter.FrequencyReaderConverter;
-import com.piggymetrics.notification.repository.converter.FrequencyWriterConverter;
-import feign.RequestInterceptor;
+import java.util.Arrays;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,6 +12,7 @@ import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequest
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.convert.CustomConversions;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -21,7 +21,10 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
-import java.util.Arrays;
+import com.piggymetrics.notification.repository.converter.FrequencyReaderConverter;
+import com.piggymetrics.notification.repository.converter.FrequencyWriterConverter;
+
+import feign.RequestInterceptor;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -31,9 +34,10 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableConfigurationProperties
 @EnableScheduling
+@EnableMongoRepositories(basePackages = {"com.piggymetrics.notification.repository"})
 public class NotificationServiceApplication {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(NotificationServiceApplication.class, args);
 	}
 
