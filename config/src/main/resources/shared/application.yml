@@ -1,6 +1,7 @@
 logging:
   level:
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG
+    org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter: DEBUG
 
 hystrix:
   command:
