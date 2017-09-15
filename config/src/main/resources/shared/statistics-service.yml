@@ -2,8 +2,9 @@ security:
   oauth2:
     client:
       clientId: statistics-service
-      #clientSecret: ${STATISTICS_SERVICE_PASSWORD}
+    #clientSecret: ${STATISTICS_SERVICE_PASSWORD}
       clientSecret: ABC123
+    #accessTokenUri: http://auth-service:5000/uaa/oauth/token
       accessTokenUri: http://localhost:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server
@@ -11,11 +12,17 @@ security:
 spring:
   data:
     mongodb:
-      host: localhost
+      host: 10.220.42.26
+      database: piggymetrics
+      port: 27000
+      username: user
+      password: ABC123
+      #statistics-mongodb
+      #host: localhost
       #username: user
       #password: ${MONGODB_PASSWORD}
-      database: statistics
-      port: 27017
+      #database: statistics
+      #port: 27017
 
 server:
   context-path: /statistics

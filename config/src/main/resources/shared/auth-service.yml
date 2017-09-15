@@ -1,11 +1,17 @@
 spring:
   data:
     mongodb:
-      host: localhost
+      host: 10.220.42.26
+      database: piggymetrics
+      port: 25000
+      username: user
+      password: ABC123
+      #host: auth-mongodb
+      #host: localhost
       #username: user
       #password: ${MONGODB_PASSWORD}
-      database: auth
-      port: 27017
+      #database: auth
+      #port: 27017
 
 server:
   context-path: /uaa

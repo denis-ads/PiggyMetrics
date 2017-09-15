@@ -3,8 +3,8 @@ security:
     client:
       clientId: account-service
       #clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
-      clientSecret: ABC123
       #accessTokenUri: http://auth-service:5000/uaa/oauth/token
+      clientSecret: ABC123
       accessTokenUri: http://localhost:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server
@@ -12,12 +12,16 @@ security:
 spring:
   data:
     mongodb:
-      host: localhost
+      host: 10.220.42.26
+      database: piggymetrics
+      port: 26000
+      username: user
+      password: ABC123
+      #host: localhost
       #username: user
       #password: ${MONGODB_PASSWORD}
-      database: account
-      port: 27017
-
+      #database: account
+      #port: 27017
 server:
   context-path: /accounts
   port: 6000
