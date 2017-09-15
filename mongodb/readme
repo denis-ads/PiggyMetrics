@@ -1,0 +1,12 @@
+docker rm -v $(docker ps -a -q -f status=exited)
+docker volume rm $(docker volume ls -qf dangling=true)
+docker rmi $(docker images -f dangling=true -q)
+
+
+
+docker build -t rabbitmq --file `pwd`/Dockerfile `pwd`
+docker run -p 0.0.0.0:5672:5672 --name rabbitmq -d rabbitmq
+
+
+docker build -t mongodb --file `pwd`/Dockerfile `pwd`
+docker run --rm -it --net=mynet -p 0.0.0.0:27017:27017 --name  mongodb -d mongodb

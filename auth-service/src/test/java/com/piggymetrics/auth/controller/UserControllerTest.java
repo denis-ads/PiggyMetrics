@@ -1,29 +1,30 @@
 package com.piggymetrics.auth.controller;
 
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.piggymetrics.auth.AuthApplication;
+import com.piggymetrics.auth.domain.User;
+import com.piggymetrics.auth.service.UserService;
+import com.sun.security.auth.UserPrincipal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.piggymetrics.auth.domain.User;
-import com.piggymetrics.auth.service.UserService;
-import com.sun.security.auth.UserPrincipal;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-// //@SpringApplicationConfiguration(classes = AuthApplication.class)
+@SpringApplicationConfiguration(classes = AuthApplication.class)
 @WebAppConfiguration
 public class UserControllerTest {
 
@@ -50,7 +51,7 @@ public class UserControllerTest {
 		user.setUsername("test");
 		user.setPassword("password");
 
-		final String json = mapper.writeValueAsString(user);
+		String json = mapper.writeValueAsString(user);
 
 		mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk());
