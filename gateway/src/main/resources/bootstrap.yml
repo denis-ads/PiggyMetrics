@@ -3,7 +3,38 @@ spring:
     name: gateway
   cloud:
     config:
+      uri: http://config:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
+---
+
+spring:
+  profiles: local
+  cloud:
+    config:
       uri: http://localhost:8888
       fail-fast: true
       password: ABC123
+      username: user
+
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      password: ABC123
+      username: user
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    config:
+      uri: http://config:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
       username: user
