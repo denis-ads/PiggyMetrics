@@ -1,0 +1,160 @@
+spring:
+   profiles.active: local
+  
+---
+
+server:
+  context-path: /vv-catalogo
+  port: 6001
+
+---
+
+spring:
+  profiles: local
+  
+  data:
+    mongodb:
+      host: 10.128.132.217
+      port: 27017 
+      database: Catalogo
+      repositories:
+        enabled: true
+
+  eureka:
+    client:
+      enabled: false
+
+  security:
+    oauth2:
+      client:
+        clientId: vv-crm
+        #clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+        accessTokenUri: http://localhost:5000/uaa/oauth/token
+        grant-type: client_credentials
+        scope: server
+        
+solr:
+  host: http://10.128.132.217:8983/solr
+
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
+
+---
+
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      host: 10.128.132.217
+      port: 27017 
+      database: Catalogo
+      repositories:
+        enabled: true
+  eureka:
+    client:
+      registerWithEureka: true
+      fetchRegistry: true
+      enabled: true
+      healthcheck:
+        enabled: true
+      serviceUrl:
+        defaultZone: http://10.128.132.217:8761/eureka/
+      region: default
+      registryFetchIntervalSeconds: 5
+      availabilityZones: 
+        default: ${APPLICATION_DOMAIN:${DOMAIN:defaultZone}}
+    instance:
+      leaseRenewalIntervalInSeconds: 10
+
+  security:
+    oauth2:
+      client:
+        clientId: vv-crm
+        #clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+        accessTokenUri: http://auth-service:5000/uaa/oauth/token
+        grant-type: client_credentials
+        scope: server
+        
+solr:
+  host: http://10.128.132.217:8983/solr
+
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
+
+---
+
+spring:
+  profiles: hom
+  data:
+    mongodb:
+      host: 10.128.132.11
+      port: 27017 
+      repositories:
+        enabled: true
+  
+solr:
+  host: http://10.128.132.11:8983/solr/
+  
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
+
+---
+spring:
+  profiles: container
+  data:
+    mongodb:
+      host: localhost
+      port: 27017 
+      repositories:
+        enabled: true
+
+solr:
+  host: ${SOLR_HOST}
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
+
+---
+
+spring:
+  profiles: dev-docker
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017 
+      repositories:
+        enabled: true
+
+solr:
+  host: http://solr:8983/solr/
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1

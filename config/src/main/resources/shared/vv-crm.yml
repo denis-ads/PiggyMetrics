@@ -1,0 +1,242 @@
+spring:
+   profiles.active: local
+  
+---
+
+server:
+  context-path: /vv-crm
+  port: 6000
+
+---
+spring:
+  profiles: local
+  
+  redis:
+    host: 10.128.132.217
+    port: 6379
+  data:
+    mongodb:
+      host: 10.128.132.217
+      port: 27017 
+      database: CRM
+      repositories:
+
+  eureka:
+    client:
+      enabled: false
+
+  security:
+    oauth2:
+      client:
+        clientId: vv-crm
+        #clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+        clientSecret: abc123
+        accessTokenUri: http://localhost:5000/uaa/oauth/token
+        grant-type: client_credentials
+        scope: server
+   
+solr:
+  host: http://10.128.132.217:8983/solr/
+
+esb:
+  host: http://esb-des.viavarejo.com.br
+  port: 7080
+  context: /vv/vendas/multicanal/cliente/rest/v1
+  contextEndereco: /vv/vendas/multicanal/endereco/rest/v1
+  contextCrediario: /vv/vendas/multicanal/crediario/rest/v1
+  url: ${esb.host}:${esb.port}${esb.context}
+  urlEndereco: ${esb.host}:${esb.port}${esb.contextEndereco}
+  urlCrediario:  ${esb.host}:${esb.port}${esb.contextCrediario}
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
+
+---
+    
+spring:
+  profiles: dev
+  
+  redis:
+    host: 10.128.132.217
+    port: 6379
+  data:
+    mongodb:
+      host: 10.128.132.217
+      port: 27017 
+      database: CRM
+      repositories:
+
+  eureka:
+    client:
+      registerWithEureka: true
+      fetchRegistry: true
+      enabled: true
+      healthcheck:
+        enabled: true
+      serviceUrl:
+        defaultZone: http://10.128.132.217:8761/eureka/
+      region: default
+      registryFetchIntervalSeconds: 5
+      availabilityZones: 
+        default: ${APPLICATION_DOMAIN:${DOMAIN:defaultZone}} 
+    instance:
+      leaseRenewalIntervalInSeconds: 10
+
+  security:
+    oauth2:
+      client:
+        clientId: vv-crm
+        #clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+        clientSecret: ABC123
+        accessTokenUri: http://10.220.42.26:5000/uaa/oauth/token
+        grant-type: client_credentials
+        scope: server
+   
+solr:
+  host: http://10.128.132.217:8983/solr/
+
+esb:
+  host: http://esb-des.viavarejo.com.br
+  port: 7080
+  context: /vv/vendas/multicanal/cliente/rest/v1
+  contextEndereco: /vv/vendas/multicanal/endereco/rest/v1
+  contextCrediario: /vv/vendas/multicanal/crediario/rest/v1
+  url: ${esb.host}:${esb.port}${esb.context}
+  urlEndereco: ${esb.host}:${esb.port}${esb.contextEndereco}
+  urlCrediario:  ${esb.host}:${esb.port}${esb.contextCrediario}
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
+
+---
+
+spring:
+  profiles: hom
+  redis:
+    host: 10.128.132.11
+    port: 6379
+  data:
+    mongodb:
+      host: 10.128.132.11
+      port: 27017
+      database: CRM
+      repositories:
+        enabled: true
+  
+solr:
+  host: http://10.128.132.11:8983/solr/
+  
+
+esb:
+  host: http://esb-hml.viavarejo.com.br
+  port: 7080
+  context: /vv/vendas/multicanal/cliente/rest/v1
+  contextEndereco: /vv/vendas/multicanal/endereco/rest/v1
+  contextCrediario: /vv/vendas/multicanal/crediario/rest/v1
+  url: ${esb.host}:${esb.port}${esb.context}
+  urlEndereco: ${esb.host}:${esb.port}${esb.contextEndereco}
+  urlCrediario:  ${esb.host}:${esb.port}${esb.contextCrediario}
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
+
+---
+spring:
+  profiles: container
+  redis:
+    host: ${REDIS_HOST}
+    port: :${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
+  
+  data:
+    mongodb:
+      host: 10.128.132.11
+      port: 27017
+      database: CRM
+      repositories:
+        enabled: true
+    
+solr:
+  host: ${SOLR_HOST}
+
+esb:
+  host: ${ESB_HOST}
+  port: ${ESB_PORT}
+  context: /${ESB_CONTEXT}
+  contextEndereco: /${ESB_CONTEXT_ENDERECO}
+  contextCrediario: /vv/vendas/multicanal/crediario/rest/v1
+  url: ${esb.host}${esb.port}${esb.context}
+  urlEndereco: ${esb.host}:${esb.port}${esb.contextEndereco}
+  urlCrediario:  ${esb.host}:${esb.port}${esb.contextCrediario}
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
+
+---
+
+spring:
+  profiles: docker
+  server:
+    context-path: /vv-crm
+    port: 6000
+    
+  redis:
+    host: redis
+    port: 6379
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: CRM
+      repositories:
+        enabled: true
+  security:
+    oauth2:
+      client:
+        clientId: vv-crm
+        #clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+        accessTokenUri: http://auth-service:5000/uaa/oauth/token
+        grant-type: client_credentials
+        scope: server
+
+solr:
+  host: http://solr:8983/solr/
+
+esb:
+  host: http://esb-hml.viavarejo.com.br
+  port: 7080
+  context: /vv/vendas/multicanal/cliente/rest/v1
+  contextEndereco: /vv/vendas/multicanal/endereco/rest/v1
+  contextCrediario: /vv/vendas/multicanal/crediario/rest/v1
+  url: ${esb.host}:${esb.port}${esb.context}
+  urlEndereco: ${esb.host}:${esb.port}${esb.contextEndereco}
+  urlCrediario:  ${esb.host}:${esb.port}${esb.contextCrediario}
+  
+
+identificacao:
+  cdEmpresa: 21
+  cdFilial: 1000
+  cdEmprFunc: 21
+  cdFuncionario: 2209640
+  cdPontoAtividade: L
+  cdBandeira: 1
