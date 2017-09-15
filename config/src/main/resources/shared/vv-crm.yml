@@ -5,7 +5,7 @@ spring:
 
 server:
   context-path: /vv-crm
-  port: 6000
+  port: 6001
 
 ---
 spring:
